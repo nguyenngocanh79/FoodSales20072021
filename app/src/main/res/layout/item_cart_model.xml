@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="5dp"
+    app:cardElevation="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#C8D5EC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp">
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:textColor="@color/black"
+            android:id="@+id/tv_date_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="16sp"
+            tools:text="Đơn hàng ngày: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:textColor="@color/black"
+            android:id="@+id/tv_product_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_label"
+            android:textSize="16sp"
+            tools:text="Số sản phẩm: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:textColor="@color/black"
+            android:id="@+id/tv_total_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="16sp"
+            tools:text="Số tiền: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:textStyle="italic"
+            android:textColor="#040404"
+            android:id="@+id/tv_date"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="16sp"
+            tools:text="2021, Nov 30 - 00:00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:textStyle="italic"
+            android:textColor="#040404"
+            android:id="@+id/tv_product"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_date"
+            android:textSize="16sp"
+            tools:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:textStyle="italic"
+            android:textColor="#040404"
+            android:id="@+id/tv_total"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_product"
+            android:textSize="16sp"
+            tools:text="VNĐ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

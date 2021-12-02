@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "555607339899",
+    "project_id": "foodsales20072021",
+    "storage_bucket": "foodsales20072021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555607339899:android:4f631ca1f0cb3e33ef03de",
+        "android_client_info": {
+          "package_name": "com.example.foodsales20072021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555607339899-25afvjllsff5q31cqdpmoqkqdlrdfrua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_ywbB3eH2D1Kzj7BDDQ1C3EQ8CoAthW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555607339899-25afvjllsff5q31cqdpmoqkqdlrdfrua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

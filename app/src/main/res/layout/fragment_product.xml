@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBF5F5"
+    android:orientation="vertical"
+    tools:context=".view.fragment.ProductFragment">
+    <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/item_food"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <include
+        android:id="@+id/containerLoading"
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
+
+</LinearLayout>
