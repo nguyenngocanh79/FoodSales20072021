@@ -26,16 +26,6 @@ public class AuthenViewModel extends BaseViewModel {
     private AuthenRepository authenRepository;
     private MutableLiveData<ApiResponse<UserModel>> responseUserLiveData = new MutableLiveData<>();
 
-//    private TokenManager tokenManager;
-//    public void setTokenManager() {
-//        tokenManager = TokenManager.getInstance();
-//    }
-//    public TokenManager getTokenManager() {
-//        return tokenManager;
-//    }
-
-
-
     public void setAuthenRepository(AuthenRepository repository) {
         this.authenRepository = repository;
     }

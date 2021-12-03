@@ -36,16 +36,6 @@ public class FoodViewModel extends BaseViewModel {
     private MutableLiveData<Integer> responseCodeLiveData = new MutableLiveData<>();
     private MutableLiveData<String> confirmLiveData = new MutableLiveData<>();
 
-//    //Context cho SessionManager
-//    private Context context;
-
-//    private SessionManager sessionManager;
-//
-//    public void setContextAndSession(Context context) {
-//        this.context = context;
-//        sessionManager = new SessionManager(context);
-//    }
-
     public void updateFoodRepository(FoodRepository foodRepository) {
         this.foodRepository = foodRepository;
     }
@@ -163,8 +153,8 @@ public class FoodViewModel extends BaseViewModel {
 
                                             setError(new Throwable(message));
                                         } catch (JSONException | IOException e) {
-                                            e.printStackTrace();
-                                            setError(new Throwable(e.getMessage()));
+//                                            e.printStackTrace();
+//                                            setError(new Throwable(e.getMessage()));
                                         }
                                     }
                                     setLoading(false);
@@ -179,7 +169,7 @@ public class FoodViewModel extends BaseViewModel {
                             });
 
                 }
-            }, 500);
+            }, 1000);
 
         }
 
@@ -246,8 +236,8 @@ public class FoodViewModel extends BaseViewModel {
                                             String message = jsonObject.getString("message");
                                             setError(new Throwable(message));
                                         } catch (JSONException | IOException e) {
-                                            e.printStackTrace();
-                                            setError(new Throwable(e.getMessage()));
+//                                            e.printStackTrace();
+//                                            setError(new Throwable(e.getMessage()));
                                         }
                                     }
                                     setLoading(false);

@@ -6,28 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.SignUpActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        app:navigationIcon="@drawable/ic_back"
-        app:contentInsetEnd="10dp"
-        android:id="@+id/toolbarSignUp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topAppBar"
+        style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2296F3"
-        app:title="Sign Up"
-        app:titleTextColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:fitsSystemWindows="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            app:navigationIcon="@drawable/ic_back"
+            android:id="@+id/toolbarSignUp"
+            style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            app:title="Sign Up" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/imageViewBannerSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar">
 
     <ImageView
-        android:id="@+id/imageViewBannerSignUp"
-        android:layout_width="400dp"
-        android:layout_height="0dp"
-        android:src="@drawable/banner"
-        app:layout_constraintDimensionRatio="4:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarSignUp" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/disk" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/petemossregular"
+        android:paddingRight="20dp"
+        android:text="FoodSales"
+        android:textSize="80sp" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"

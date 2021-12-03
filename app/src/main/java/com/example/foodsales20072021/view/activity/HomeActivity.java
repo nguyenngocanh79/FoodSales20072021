@@ -116,16 +116,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//        //Từ Launching Activity hoặc Login vào
-//        Intent intent = getIntent();
-//        if(intent!=null){
-//            int code = intent.getIntExtra("code",0);
-//            //Nếu code là 404 tức đã confirm, không có sp trong cart
-//            if(code != 200) {
-//                numOfProduct = 0;
-//                updateCartIcon(numOfProduct);
-//            }
-//        }
         //Đặt phần giỏ hàng trong đây, nếu không khi thay đổi giỏ hàng ở CartActivity,
         //Back về thì giỏ hàng không được cập nhật. Khi startAcitvity thì HomeActivity chỉ bị stop,
         //Back về thì vào onStart

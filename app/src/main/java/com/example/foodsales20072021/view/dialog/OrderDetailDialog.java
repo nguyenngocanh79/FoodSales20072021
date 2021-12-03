@@ -42,7 +42,6 @@ public class OrderDetailDialog {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mBinding = DialogOrderDetailBinding.inflate(activity.getLayoutInflater());
         dialog.setContentView(mBinding.getRoot());
-//        dialog.setContentView(R.layout.dialog_detail);
         dialog.setCancelable(false);
 
         Window window = dialog.getWindow();

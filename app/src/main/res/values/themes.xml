@@ -14,26 +14,15 @@
         <!-- Customize your theme here. -->
 
         <!--        Dùng cho tất cả Component (button by default nằm trong SmallComponent category)-->
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent</item>
-<!--        Dùng cho riêng Button, sẽ overlay trên theme default (OPTIONAL)-->
-<!--        Muốn áp dụng riêng cho outlined và text button, style phải dùng "?attr/ + name,-->
-<!--            không dùng các Widgets cho style như hướng dẫn dù có Icon hay không-->
-<!--        Nếu bỏ 2 dòng outlined và text button, overlay của button thường sẽ áp dụng cho cả 2 loại này-->
-<!--        <item name="textAppearanceButton">@style/TextAppearance.App.Button</item>-->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent
+        </item>
 
-<!--        <item name="borderlessButtonStyle">@style/Widget.App.Button.TextButton</item>-->
-<!--        <item name="materialButtonOutlinedStyle">@style/Widget.App.Button.OutlinedButton</item>-->
-<!--        <item name="materialButtonStyle">@style/Widget.App.Button</item>-->
-
-
-</style>
-
-
-
-
-<!--Dùng cho toàn bộ Component-->
+    </style>
+    <!--Dùng cho toàn bộ Component-->
     <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
@@ -50,93 +39,9 @@
     </style>
     <!--    Text cho button-->
     <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
-<!--        <item name="fontFamily">@font/rubik_bold</item>-->
-<!--        <item name="android:fontFamily">@font/rubik_bold</item>-->
+        <!--        <item name="fontFamily">@font/rubik_bold</item>-->
+        <!--        <item name="android:fontFamily">@font/rubik_bold</item>-->
     </style>
-
-<!--    Dùng cho 1 component cụ thể - Material Button-->
-    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
-<!--        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>-->
-<!--        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>-->
-    </style>
-
-    <style name="Widget.App.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
-<!--        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>-->
-<!--        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>-->
-    </style>
-
-    <style name="Widget.App.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.OutlinedButton</item>
-        <item name="android:textAppearance">@style/TextAppearanceOverlay.App.Button</item>
-<!--        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>-->
-    </style>
-
-    <style name="ThemeOverlay.App.Button" parent="">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.materialButtonStyle</item>
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="iconSize">50dp</item>
-    </style>
-
-    <style name="ThemeOverlay.App.Button.OutlinedButton" parent="">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.materialOutLinedButtonStyle</item>
-        <item name="colorPrimary">#0141FD</item>
-
-    </style>
-
-    <style name="ThemeOverlay.App.Button.TextButton" parent="">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.materialTextButtonStyle</item>
-        <item name="colorPrimary">@color/black</item>
-    </style>
-
-
-<!--    <style name="Widget.MyApp.materialButtonStyle" parent="Widget.MaterialComponents.Button">-->
-<!--        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.materialButtonStyle</item>-->
-<!--    </style>-->
-
-    <style name="ShapeAppearanceOverlay.MyApp.materialButtonStyle" parent="">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">30dp</item>
-    </style>
-
-    <style name="ShapeAppearanceOverlay.MyApp.materialOutLinedButtonStyle" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10dp</item>
-    </style>
-
-    <style name="ShapeAppearanceOverlay.MyApp.materialTextButtonStyle" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">40dp</item>
-    </style>
-
-    <style name="TextAppearanceOverlay.App.Button" parent="TextAppearance.MaterialComponents.Button">
-<!--        <item name="fontFamily">@font/rubik_italic</item>-->
-<!--        <item name="android:fontFamily">@font/rubik_italic</item>-->
-    </style>
-
-<!--    Dành riêng cho 1 Button cụ thể-->
-    <style name="Widget.App.Button.OutlinedToggleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.ToggleButton</item>
-        <item name="android:textAppearance">@style/TextAppearanceOverlay.App.ToggleButton</item>
-<!--        <item name="backgroundTint">@color/tbtn_bg_color_selector</item>-->
-
-        <!--        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>-->
-    </style>
-    <style name="ThemeOverlay.App.Button.ToggleButton" parent="">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.materialOutLinedButtonStyle</item>
-<!--        <item name="colorPrimary">#CDDC39</item>-->
-
-
-    </style>
-    <style name="TextAppearanceOverlay.App.ToggleButton" parent="TextAppearance.MaterialComponents.Button">
-<!--        <item name="fontFamily">@font/rubik_italic</item>-->
-<!--        <item name="android:fontFamily">@font/rubik_italic</item>-->
-        <item name="android:textColor"></item>
-    </style>
-
-
 
     <style name="Theme.NavigationDrawerSample.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodsales20072021.MyApplication;
+import com.example.foodsales20072021.common.GetTokenResult;
 import com.example.foodsales20072021.databinding.ActivityLaunchingBinding;
 import com.example.foodsales20072021.utils.TokenManager;
 import com.example.foodsales20072021.viewmodel.FoodViewModel;
@@ -56,7 +56,6 @@ public class LaunchingActivity extends AppCompatActivity {
                     Intent intent = new Intent(LaunchingActivity.this, HomeActivity.class);
                     intent.putExtra("code", code);
                     startActivity(intent);
-                    Toast.makeText(LaunchingActivity.this, "Already signed in", Toast.LENGTH_SHORT).show();
                 } else {//Nếu code == 401 , token đã expired, hoặc trường hợp khác thì mở Sign in
                     startActivity(new Intent(LaunchingActivity.this, MainActivity.class));
                 }
@@ -64,15 +63,14 @@ public class LaunchingActivity extends AppCompatActivity {
             }
         });
 
-        TokenManager tokenManager = TokenManager.getInstance();
-        String token = tokenManager.fetchAuthToken();
-        if (token != null) {
+        GetTokenResult getTokenResult = TokenManager.getInstance().getAuthToken();
+        if (getTokenResult == GetTokenResult.SUCCESS) {
             //Nếu đã lưu token, gửi thử lấy Total Cart để kiểm tra Token còn hiệu lực không. Sau đó kiểm tra kết quả server trả về
             //Load TotalCount (số sản phẩm trong cart)
             mFoodViewModel.fetchTotalCount();
 
         } else {
-            //Nếu token = null tức chưa lưu token, mở Sign in
+            //Nếu getTokenResult = FAIL tức chưa lưu token, mở Sign in
             mFoodViewModel.setLoading(true);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -81,7 +79,7 @@ public class LaunchingActivity extends AppCompatActivity {
                     finish();
                     mFoodViewModel.setLoading(false);
                 }
-            }, 500);
+            }, 1000);
         }
 
 

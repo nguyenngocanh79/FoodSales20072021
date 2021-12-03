@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -31,9 +32,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void updateToken(String refreshToken){
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        Token token = new Token(refreshToken);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //Lấy UserId từ bộ nhớ
         TokenManager tokenManager = TokenManager.getInstance();
@@ -51,14 +50,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
-        String sented = remoteMessage.getData().get("sented");
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-//        if(firebaseUser != null && sented.equals(firebaseUser.getUid())){
-//            sendNotification(remoteMessage);
+        Log.d("BBB","có mail");
+//            //Nếu server (bài này là máy tự gửi) gửi Data message thì phải tự tạo Notification
             sendNotification(remoteMessage);
-//        };
     }
 
     /**

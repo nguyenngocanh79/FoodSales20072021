@@ -16,10 +16,6 @@ import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder>{
 
-//    List<String> imgString;
-//    public SliderAdapter(List<String> imgString){
-//        this.imgString = imgString;
-//    }
     List<ImageModel> imgModels;
     public SliderAdapter(List<ImageModel> imgModels){
         this.imgModels = imgModels;

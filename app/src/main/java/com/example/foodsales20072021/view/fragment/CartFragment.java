@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.foodsales20072021.model.CartModel;
 import com.example.foodsales20072021.model.ConfirmModel;
 import com.example.foodsales20072021.model.Data;
 import com.example.foodsales20072021.model.FoodModel;
+import com.example.foodsales20072021.model.Notification;
 import com.example.foodsales20072021.model.OrderedItemModel;
 import com.example.foodsales20072021.model.Sender;
 import com.example.foodsales20072021.model.Token;
@@ -84,7 +86,7 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = FragmentCartBinding.inflate(inflater,container, false);
+        mBinding = FragmentCartBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
 
         //Firestore
@@ -93,13 +95,13 @@ public class CartFragment extends Fragment {
 
         //ViewModel
         mFoodViewModel = new ViewModelProvider(this).get(FoodViewModel.class);
-        mFoodViewModel.updateFoodRepository(((MyApplication)getActivity().getApplication()).foodRepository);
+        mFoodViewModel.updateFoodRepository(((MyApplication) getActivity().getApplication()).foodRepository);
         mNotificationViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
-        mNotificationViewModel.setNotificationRepository(((MyApplication)getActivity().getApplication()).notificationRepository);
+        mNotificationViewModel.setNotificationRepository(((MyApplication) getActivity().getApplication()).notificationRepository);
 
 
         //Recyclerview
-        mRcvCart= mBinding.recyclerView;
+        mRcvCart = mBinding.recyclerView;
         mListOrderItemModel = new ArrayList<>();
         mCartAdapter = new CartAdapter();
         mCartAdapter.updateListOrderedItemModels(mListOrderItemModel);
@@ -121,11 +123,11 @@ public class CartFragment extends Fragment {
         mFoodViewModel.fetchCartModel();
     }
 
-    private void getAndSaveToken(){
+    private void getAndSaveToken() {
         //Lấy và lưu Token cho Firebase Message
         //Khi User vào màn hình Cart, Lấy Token và lưu trên server
         FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(getActivity(),new OnCompleteListener<String>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
@@ -141,7 +143,8 @@ public class CartFragment extends Fragment {
 
 
     }
-    private void updateToken(String token){
+
+    private void updateToken(String token) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //Lấy UserId từ bộ nhớ
         TokenManager tokenManager = TokenManager.getInstance();
@@ -153,41 +156,20 @@ public class CartFragment extends Fragment {
     }
 
     private void event() {
-        //Nhãn Tổng tiền (làm tạm thử)
+        //Test các loại notification (notification, data, both)
         mBinding.textviewTotalAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Uploade đơn hàng thành công (cartmodel) lên Firestore
-                Toast.makeText(getContext(), "bắt đầu gửi Notification", Toast.LENGTH_SHORT).show();
-                String userid = "";
-                userid = TokenManager.getInstance().getUserId();
-                if(!userid.equals("")){ //Nếu có Userid
-                    //Gửi notification lên Firebase Messaging để gửi Message về chính máy này
-                    Data data = new Data(userid,R.drawable.ic_email,
-                            "Đơn hàng thanh toán thành công", "New Message", userid);
-                    //Lấy token của người nhận (chính máy này) trên Firestore
-                    db.collection("Tokens").document(userid)
-                            .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Token token = documentSnapshot.toObject(Token.class);
-                            Sender sender = new Sender(data,token.getToken());
-                            mNotificationViewModel.sendNotification(sender);
-                        }
-                    });
-
-                } else {//Nếu không có Userid, khả năng là đã bị xóa cùng token
-                    Toast.makeText(getContext(), "UserId có thể đã bị xóa cùng token", Toast.LENGTH_SHORT).show();
-                }
+//                testNotification();
             }
         });
         //Nút confirm
         mBinding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mCartModel!=null){
+                if (mCartModel != null) {
                     //Gọi hàm fetchConfirm, xem kết quả ở getConfirmLiveData
-                    ConfirmModel confirmModel = new ConfirmModel(mCartModel.items.get(0).orderId,"CONFIRM");
+                    ConfirmModel confirmModel = new ConfirmModel(mCartModel.items.get(0).orderId, "CONFIRM");
                     mFoodViewModel.fetchConfirm(confirmModel);
                 }
             }
@@ -196,13 +178,13 @@ public class CartFragment extends Fragment {
         mCartAdapter.setOnCartListener(new CartAdapter.OnCartListener() {
             @Override
             public void setOnOrderedItemClickListener(int position, int type) {
-                switch (type){
+                switch (type) {
                     case 1: //Click vào nút "-"
                         //Còn thiếu trường hợp số sp ==0, hình như server không trả về
 
-                        if(mListOrderItemModel.get(position).quantity>1){
+                        if (mListOrderItemModel.get(position).quantity > 1) {
                             orderedItemModel = mListOrderItemModel.get(position);
-                            orderedItemModel.quantity = mListOrderItemModel.get(position).quantity-1;
+                            orderedItemModel.quantity = mListOrderItemModel.get(position).quantity - 1;
                             orderedItemModel.orderId = mListOrderItemModel.get(position).orderId;
                             orderedItemModel.foodId = mListOrderItemModel.get(position).foodId;
                             mFoodViewModel.fetchUpdateResult(orderedItemModel);
@@ -210,7 +192,7 @@ public class CartFragment extends Fragment {
                         break;
                     case 2: //Click vào nút "+"
                         orderedItemModel = mListOrderItemModel.get(position);
-                        orderedItemModel.quantity = mListOrderItemModel.get(position).quantity+1;
+                        orderedItemModel.quantity = mListOrderItemModel.get(position).quantity + 1;
                         orderedItemModel.orderId = mListOrderItemModel.get(position).orderId;
                         orderedItemModel.foodId = mListOrderItemModel.get(position).foodId;
                         mFoodViewModel.fetchUpdateResult(orderedItemModel);
@@ -231,18 +213,18 @@ public class CartFragment extends Fragment {
             @Override
             public void onChanged(CartModel cartModel) {
                 int total = 0;
-                if(cartModel!=null){
+                if (cartModel != null) {
                     mCartModel = cartModel;
                     mListOrderItemModel = cartModel.items;
                     mCartAdapter.updateListOrderedItemModels(cartModel.items);
                     //Label tổng tiền
                     NumberFormat formatter = new DecimalFormat("#,###");
-                    mBinding.textviewTotalAmount.setText("Tổng tiền: "+ formatter.format(cartModel.total) + "đ");
+                    mBinding.textviewTotalAmount.setText("Tổng tiền: " + formatter.format(cartModel.total) + "đ");
 
-                    for(OrderedItemModel orderedItem:cartModel.items){
-                        total = total+orderedItem.quantity;
+                    for (OrderedItemModel orderedItem : cartModel.items) {
+                        total = total + orderedItem.quantity;
                     }
-                }else{
+                } else {
                     mBinding.textviewTotalAmount.setText("Tổng tiền: 0đ");
                     mCartAdapter.updateListOrderedItemModels(new ArrayList<>());
                 }
@@ -255,8 +237,8 @@ public class CartFragment extends Fragment {
         mFoodViewModel.getUpdateResultLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if(s!=null) {
-                    if (s.equals("OK")){
+                if (s != null) {
+                    if (s.equals("OK")) {
                         mFoodViewModel.fetchCartModel();
                     }
                 }
@@ -275,18 +257,18 @@ public class CartFragment extends Fragment {
         mFoodViewModel.getConfirmLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if(s!=null){//Nếu có kết quả trả về
-                    if(s.equals("OK")){
+                if (s != null) {//Nếu có kết quả trả về
+                    if (s.equals("OK")) {
                         //Uploade đơn hàng thành công (cartmodel) lên Firestore
                         String userid = "";
                         userid = TokenManager.getInstance().getUserId();
-                        if(!userid.equals("")){ //Nếu có Userid
+                        if (!userid.equals("")) { //Nếu có Userid
                             //--Thêm field userId để lọc user khi hiển thị trên từng account
                             mCartModel.userId = userid;
                             //--Thêm field confirmedAt để hiển thị
                             mCartModel.confirmedAt = new Date();
                             String confirmedDate = new SimpleDateFormat("yyyy, MMM dd - HH:mm:ss")
-                                    .format( mCartModel.confirmedAt);
+                                    .format(mCartModel.confirmedAt);
 
                             db.collection("OrderHistory")
                                     .document(userid + "-" + confirmedDate)
@@ -301,15 +283,15 @@ public class CartFragment extends Fragment {
                             mFoodViewModel.fetchCartModel();
 
                             //Gửi notification lên Firebase Messaging để gửi Message về chính máy này
-                            Data data = new Data(userid,R.drawable.ic_email,
-                                    "Đơn hàng "+ confirmedDate + " thanh toán thành công", "New Message", userid);
+                            Data data = new Data(userid, R.drawable.ic_email,
+                                    "Đơn hàng " + confirmedDate + " thanh toán thành công", "New Message", userid);
                             //Lấy token của người nhận (chính máy này) trên Firestore
                             db.collection("Tokens").document(userid)
                                     .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     Token token = documentSnapshot.toObject(Token.class);
-                                    Sender sender = new Sender(data,token.getToken());
+                                    Sender sender = new Sender(data, token.getToken());
                                     mNotificationViewModel.sendNotification(sender);
                                 }
                             });
@@ -317,12 +299,12 @@ public class CartFragment extends Fragment {
                         } else {//Nếu không có Userid, khả năng là đã bị xóa cùng token
                             Toast.makeText(getContext(), "UserId có thể đã bị xóa cùng token", Toast.LENGTH_SHORT).show();
                         }
-                    }else{
+                    } else {
                         //Nếu message != null, nhưng khác "OK"
-                        Toast.makeText(getContext(), "Kết quả: "+s+". Confirm không thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Kết quả: " + s + ". Confirm không thành công", Toast.LENGTH_SHORT).show();
                     }
 
-                }else{
+                } else {
                     //Nếu không có message trả về
                     Toast.makeText(getContext(), "Confirm không thành công", Toast.LENGTH_SHORT).show();
                 }
@@ -331,11 +313,45 @@ public class CartFragment extends Fragment {
         });
     }
 
-
-
     private void updateCartIcon(int product) {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottomHome);
-        NavBadge.updateBadge(bottomNavigationView,R.id.menu_item_cart,product);
+        NavBadge.updateBadge(bottomNavigationView, R.id.menu_item_cart, product);
+    }
+
+    private void testNotification() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Uploade đơn hàng thành công (cartmodel) lên Firestore
+                Toast.makeText(getContext(), "bắt đầu gửi Notification", Toast.LENGTH_SHORT).show();
+                String userid = "";
+                userid = TokenManager.getInstance().getUserId();
+                if (!userid.equals("")) { //Nếu có Userid
+                    //Gửi notification lên Firebase Messaging để gửi Message về chính máy này
+                    Data data = new Data(userid, R.drawable.ic_email,
+                            "Đơn hàng thanh toán thành công", "New Message", userid);
+                    Notification notification = new Notification("New Fire Message",
+                            "Firebase has new message for you");
+
+                    //Lấy token của người nhận (chính máy này) trên Firestore
+                    db.collection("Tokens").document(userid)
+                            .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Token token = documentSnapshot.toObject(Token.class);
+                            Sender sender = new Sender(data, token.getToken());
+                            Sender sender1 = new Sender(notification, token.getToken());
+                            Sender sender2 = new Sender(notification, data, token.getToken());
+                            mNotificationViewModel.sendNotification(sender2);
+                        }
+                    });
+
+                } else {//Nếu không có Userid, khả năng là đã bị xóa cùng token
+                    Toast.makeText(getContext(), "UserId có thể đã bị xóa cùng token", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, 3000);
+
     }
 
 }

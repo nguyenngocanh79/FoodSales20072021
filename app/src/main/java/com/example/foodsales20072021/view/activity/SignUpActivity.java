@@ -24,9 +24,6 @@ public class SignUpActivity extends AppCompatActivity {
         mBinding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-//        mBinding.toolbarSignUp.setNavigationIcon(R.drawable.ic_back);
-//        mBinding.toolbarSignUp.setTitle("Sign Up");
-//        mBinding.toolbarSignUp.setTitleTextColor(Color.WHITE);
         mBinding.toolbarSignUp.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

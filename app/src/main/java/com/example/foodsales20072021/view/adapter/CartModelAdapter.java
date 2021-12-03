@@ -87,29 +87,6 @@ public class CartModelAdapter extends RecyclerView.Adapter<CartModelAdapter.Cart
                 }
             });
 
-//
-//
-//            mBinding.btnMinus.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onCartListener.setOnOrderedItemClickListener(getAdapterPosition(),1);
-//
-//                }
-//            });
-//
-//            mBinding.btnPlus.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onCartListener.setOnOrderedItemClickListener(getAdapterPosition(),2);
-//                }
-//            });
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onCartListener.setOnOrderedItemClickListener(getAbsoluteAdapterPosition(),3);
-//                }
-//            });
         }
     }
 

@@ -122,10 +122,6 @@ public class ProductFragment extends Fragment {
             public void setOnFoodClickListener(int position, int type) {
                 switch (type){
                     case 1: //Click vào item
-//                        Intent intent = new Intent(HomeActivity.this,DetailActivity.class);
-//                        intent.putExtra("food", mListFood.get(position));
-//                        startActivity(intent);
-
                         DetailDialog.createDetailDialog(getActivity(), mListFood.get(position));
                         Toast.makeText(getContext(), "Open Product Detail", Toast.LENGTH_SHORT).show();
                         break;
