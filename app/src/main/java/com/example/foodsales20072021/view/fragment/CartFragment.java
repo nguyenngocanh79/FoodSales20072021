@@ -225,6 +225,7 @@ public class CartFragment extends Fragment {
                         total = total + orderedItem.quantity;
                     }
                 } else {
+                    mCartModel = null;
                     mBinding.textviewTotalAmount.setText("Tổng tiền: 0đ");
                     mCartAdapter.updateListOrderedItemModels(new ArrayList<>());
                 }
@@ -283,7 +284,7 @@ public class CartFragment extends Fragment {
                             mFoodViewModel.fetchCartModel();
 
                             //Gửi notification lên Firebase Messaging để gửi Message về chính máy này
-                            Data data = new Data(userid, R.drawable.ic_email,
+                            Data data = new Data(userid, R.drawable.message,
                                     "Đơn hàng " + confirmedDate + " thanh toán thành công", "New Message", userid);
                             //Lấy token của người nhận (chính máy này) trên Firestore
                             db.collection("Tokens").document(userid)
@@ -328,7 +329,7 @@ public class CartFragment extends Fragment {
                 userid = TokenManager.getInstance().getUserId();
                 if (!userid.equals("")) { //Nếu có Userid
                     //Gửi notification lên Firebase Messaging để gửi Message về chính máy này
-                    Data data = new Data(userid, R.drawable.ic_email,
+                    Data data = new Data(userid, R.drawable.message,
                             "Đơn hàng thanh toán thành công", "New Message", userid);
                     Notification notification = new Notification("New Fire Message",
                             "Firebase has new message for you");
