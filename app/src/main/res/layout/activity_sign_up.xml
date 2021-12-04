@@ -45,12 +45,15 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="150dp"
+        android:gravity="center"
         android:fontFamily="@font/petemossregular"
         android:paddingRight="20dp"
         android:text="FoodSales"
-        android:textSize="80sp" />
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="100sp"
+        app:autoSizeStepGranularity="2sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Barrier
